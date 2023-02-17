@@ -1,24 +1,32 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        int n, x;
-        cin >> n;
-        vector<int> s(n);
-        for (int i=0; i<n; i++)
-            cin >> s[i];
-        sort(s.begin(), s.end());
-        if (s[0] == s[n-1])
-            cout << "-1\n";
-        else
-        {
-            cout << s[0] << ' ' << s[1] << endl;
-        }
-    }
+	int t;
+	cin >> t;
+	while (t--)
+	{
+		int n;
+		cin >> n;
+		set<int>s;
+		while(n--)
+		{
+			int x;
+			cin >> x;
+			s.insert(x);
+		}
+		if(s.size()==1 ) cout<< -1;
+		else
+		{
+			int cnt=0;
+			for(auto x:s)
+			{
+				cout<< x << " ";
+				cnt++;
+				if(cnt==2) break;
+			}
+		}
+		cout << endl;
+	} 	
 }
