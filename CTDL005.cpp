@@ -14,4 +14,5 @@ int main()
     for (int i=0; i<t; i++)
         if (a[i] != x)
             cout << a[i] << ' ';
+    system("pause");
 }
