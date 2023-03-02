@@ -1,55 +1,59 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-int a[100005];
-int n;
+int a[1000000+2]={};
 
-void merge(int left, int mid, int right)
+
+void merge(int a[],int l,int m,int r)
 {
-    int i = left, j = mid + 1, k = left;
-    int temp[100005];
-
-    while (i <= mid && j <= right)
-    {
-        if (a[i] <= a[j])
-            temp[k++] = a[i++];
-        else
-            temp[k++] = a[j++];
-    }
-
-    while (i <= mid)
-        temp[k++] = a[i++];
-    while (j <= right)
-        temp[k++] = a[j++];
-
-    for (int i = left; i <= right; i++)
-    {
-        a[i] = temp[i];
-    }
+	vector<int> x(a+l,a+m+1);
+	vector<int> y(a+m+1,a+r+1);
+	int i=0,j=0;
+	while(i<x.size() && j<y.size())
+	{
+		if(x[i]<=y[j])
+		{
+			a[l]=x[i]; ++l;++i;
+		}
+		else
+		{
+			a[l]=y[j];++l;++j;
+		}
+	}
+	while(i<x.size()) 
+	{
+		a[l]=x[i];
+		++l;
+		++i;
+	}
+	while(j<y.size()) 
+	{
+		a[l]=y[j];
+		++l;
+		++j;
+	}
 }
 
-void mergeSort(int left, int right)
+void mersort(int a[],int l, int r)
 {
-    if (left >= right)
-        return;
-    int mid = left + (right - left) / 2;
-    mergeSort(left, mid);
-    mergeSort(mid + 1, right);
-    merge(left, mid, right);
+	if(l>=r) return;
+	int m=(l+r)/2;
+	mersort(a,l,m);
+	mersort(a,m+1,r);
+	merge(a,l,m,r);
 }
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        cin >> n;
-        int cnt = 0;
-        for (int i = 0; i < n; i++)
-            cin >> a[i];
-        mergeSort(0, n - 1);
-        for (int i = 0; i < n; i++)
-            cout << a[i] << ' ';
-        cout << endl;
-    }
+	int t;
+	cin >> t;
+	while(t--)
+	{
+		int n;
+		cin >> n;
+		for(int i=0;i<n;i++) cin >> a[i];
+		mersort(a,0,n-1);
+		for(int i=0;i<n;i++) cout << a[i] << " ";
+		cout << endl;
+	}
+ 	return 0;
 }
