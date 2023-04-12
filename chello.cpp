@@ -3,5 +3,10 @@ using namespace std;
 
 int main()
 {
-	cout<<"Hello PTIT.";
+	int n;
+	cin >> n;
+	while (n--)
+	{
+		cout << n;
+	}
 }
