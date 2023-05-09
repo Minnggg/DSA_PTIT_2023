@@ -1,57 +1,62 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-int V,E,u,v;
-vector<int>ke[1005],ans;
-int vs[1005];
+vector<int> adj[100000];
+int par[100000]={};
+int trace[10000]={};
 
-void nhap()
+
+
+
+
+
+
+void dfs(int u) // Tìm kiếm theo chiều sâu từ u.
 {
-	cin >> V >> E;
-	
-	ans.clear();
-	for(int i=1;i<=V;i++) ke[i].clear();
-	for(int i=1;i<=E;i++) 
-	{
-		int x,y;
-		cin >> x >> y;
-		ke[x].push_back(y);
-	}
+    for (int v: adj[u])
+    {
+        if (v == par[u]) // Kiểm tra v không được trùng với cha của u.
+            continue;
+
+        par[v] = u; // Đặt cha của v là u.
+        dfs(v); // Tiếp tục tiến vào con của u.
+    }
 }
 
-void DFS(int x)
+void trace(int s, int f)
 {
-	ans.push_back(x);
-	vs[x]=1;
-	if(x==v) return;
-	for(auto z : ke[x]) if(vs[z]==0) DFS(z);
-	return;
+    vector < int > path; // Lưu đường đi từ s tới f.
+    while (f != 0)
+    {
+        path.push_back(f);
+        f = trace[f];
+    }
+
+    for (int i = path.size() - 1; i >= 0; --i) // In ngược lại để thu được thứ tự từ s -> f.
+        cout << path[i] << "->";
 }
-
-
 
 int main()
 {
-	int t;
-	cin >> t;
-	while(t--)
-	{
-		nhap();
-		int q;
-		cin >> q;
-		while(q--)
-		{
-			cin >> u >> v;
-			memset(vs,0,sizeof(vs));
-			DFS(u);
-			if(vs[v]==1) 
-			{
-				cout << "YES";
-			}
-			else cout << "NO";
-			cout << "\n";
-		}
-		
+    int t;
+    cin >> t;
+    while(t--)
+    {
+	    // Nhập dữ liệu đồ thị.
+	    cin >> n >> m >> s >> f;
+	    for (int i = 1; i <= m; ++i)
+	    {
+	        int u, v;
+	        cin >> u >> v;
+	        adj[u].push_back(v);
+	        adj[v].push_back(u);
+	    }
+	
+	    dfs(s); // Tìm kiếm theo chiều sâu bắt đầu từ s.
+	
+	    if (trace[f] == 0) cout << "-1";
+	    else
+	        trace(s, f); // Truy vết đường đi từ s tới f.
 	}
- 	return 0;
 }
+

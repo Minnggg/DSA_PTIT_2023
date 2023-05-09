@@ -1,35 +1,26 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 
 int main()
 {
-    int t;
-    cin >> t;
-    while (t--)
-    {
-        int n;
-        cin >> n;
-        int cnt = 0;
-        cnt += (n/1000);
-        n = n%1000;
-        cnt += (n/500);
-        n = n%500;
-        cnt += (n/200);
-        n = n%200;
-        cnt += (n/100);
-        n = n%100;
-        cnt += (n/50);
-        n = n%50;
-        cnt += (n/20);
-        n = n%20;
-        cnt += (n/10);
-        n = n%10;
-        cnt += (n/5);
-        n = n%5;
-        cnt += (n/2);
-        n = n%2;
-        cnt += n;
-        cout << cnt << endl;
-    }
+	int t;
+	cin >> t;
+	while(t--)
+	{
+		int value[10]={1,2,5,10,20,50,100,200,500,1000};
+		int n;
+		cin >> n;
+		int ans=0;
+		for(int i=9;i>=0;i--)
+		{
+			while(n-value[i]>=0)
+			{
+				ans++;
+				n-=value[i];	
+			} 
+		}
+		cout << ans << endl;
+		
+	}
+ 	return 0;
 }
